@@ -1,6 +1,6 @@
 export const environment = {
   urls: {
-    baseApiUrl: 'http://localhost:3000',
+    baseApiUrl: 'https://crud-api-tau.vercel.app',
     viacepApiUrl: 'https://viacep.com.br/ws',
   },
 };

@@ -1,0 +1,19 @@
+.form-control.ng-touched.ng-invalid {
+  border: 1px solid var(--danger-color);
+}
+
+.form-control:focus {
+  border: 1px solid var(--primary-color) !important;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  label {
+    font-size: 0.857rem;
+    color: #5e5873;
+  }
+
+  .validation-message {
+    font-size: 0.857rem;
+  }
+}

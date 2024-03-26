@@ -12,6 +12,10 @@ import { AddressesListView } from './private/views/addresses-list-view/addresses
         component: AddressesListView,
       },
       {
+        path: 'add',
+        component: AddressView,
+      },
+      {
         path: ':addressId',
         component: AddressView,
       },

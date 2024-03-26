@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label *ngIf="title" [for]="title">{{ title }}</label>
+  <select
+    class="form-control"
+    [formControl]="formControlRef"
+    [id]="title"
+    (change)="optionSelected.emit(formControlRef.value)"
+  >
+    <option [value]="null" disabled selected hidden>-Selecione-</option>
+
+    <option *ngFor="let option of options" [value]="option[optionValueKey]">
+      {{ option[optionLabelKey] }}
+    </option>
+  </select>
+
+  <div
+    class="text-danger"
+    *ngIf="formControlRef.touched && formControlRef.invalid"
+  >
+    <span class="validation-message">Campo requerido</span>
+  </div>
+</div>

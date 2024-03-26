@@ -1,19 +1,164 @@
-<div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-4">
-        <form [formGroup]="addressFormGroup">
-          <div class="form-group">
-            <label for="cep">Código postal</label>
-            <input
-              id="cep"
-              formControlName="cep"
-              type="text"
-              class="form-control"
-            />
-          </div>
-        </form>
+<div class="container-fluid px-0">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="content-card-title mb-3 col-md-6">
+          <h4 class="card-title mb-1">Endereços</h4>
+          <p class="card-subtitle text-muted">Cadastro de endereços</p>
+        </div>
+      </div>
+
+      <ng-container *ngIf="!isLoading; else loadingTemplate">
+        <ng-container *ngIf="!hasError; else errorTemplate">
+          <form [formGroup]="addressFormGroup" [@fade]>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <form-input
+                    class="col-11"
+                    [formControlRef]="addressFormGroup.controls.cep"
+                    placeholder="Ex.: 85902-060"
+                    title="Código postal"
+                    mask="00000-000"
+                  ></form-input>
+                  <div
+                    class="spinner-border spinner-border-sm col-1 ms-2 text-secondary"
+                    role="status"
+                    *ngIf="isFetchingPostalCode"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.localidade"
+                  placeholder="Localidade"
+                  title="Localidade"
+                ></form-input>
+              </div>
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.ddd"
+                  title="DDD"
+                  mask="(00)"
+                  placeholder="Ex.: (45)"
+                ></form-input>
+              </div>
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.bairro"
+                  placeholder="Bairro"
+                  title="Bairro"
+                ></form-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <form-select
+                  [formControlRef]="addressFormGroup.controls.uf"
+                  title="UF"
+                  [options]="states"
+                  optionLabelKey="name"
+                  optionValueKey="UF"
+                ></form-select>
+              </div>
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.ibge"
+                  mask="0000000"
+                  title="IBGE"
+                  placeholder="IBGE"
+                ></form-input>
+              </div>
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.logradouro"
+                  title="Logradouro"
+                  placeholder="Logradouro"
+                ></form-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.gia"
+                  title="GIA"
+                  placeholder="GIA"
+                  mask="000.0"
+                ></form-input>
+              </div>
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.complemento"
+                  placeholder="Complemento"
+                  title="Complemento"
+                ></form-input>
+              </div>
+              <div class="col-md-4">
+                <form-input
+                  [formControlRef]="addressFormGroup.controls.siafi"
+                  title="Siafi"
+                  placeholder="Siafi"
+                ></form-input>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </ng-container>
+      <div class="footer border-top d-flex justify-content-between mt-4 pt-3">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-secondary" routerLink="../">Cancelar</button>
+          <button
+            class="btn btn-danger ms-2"
+            [disabled]="isRemoving"
+            (click)="removeAddress()"
+            *ngIf="addressFormGroup?.controls?._id?.value"
+          >
+            <span *ngIf="!isRemoving"> Excluir </span>
+            <span class="spinner-border spinner-border-sm" *ngIf="isRemoving">
+            </span>
+          </button>
+        </div>
+        <button
+          class="btn btn-primary"
+          [disabled]="isSaving"
+          (click)="saveAddress()"
+        >
+          <span *ngIf="!isSaving"> Salvar </span>
+          <span
+            class="spinner-border spinner-border-sm"
+            aria-hidden="true"
+            *ngIf="isSaving"
+          ></span>
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #errorTemplate>
+  <div class="alert alert-danger">
+    <div class="alert-body">
+      <span>Ocorreu um erro ao buscar os dados do endereço</span>
+      <button
+        class="btn btn-primary btn-sm ms-2"
+        (click)="fetchAddressRegister()"
+      >
+        Tentar novamente
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <h5 class="card-title placeholder-glow">
+    <span class="placeholder col-6 bg-secondary"></span>
+  </h5>
+  <p class="card-text placeholder-glow">
+    <span
+      *ngFor="let el of [1,2,3]"
+      class="placeholder col-5 bg-secondary"
+    ></span>
+  </p>
+</ng-template>

@@ -1,14 +1,15 @@
 import { FormControl } from '@angular/forms';
 
 export type AddressForm = {
-  cep: FormControl<string | undefined>;
-  logradouro: FormControl<string | undefined>;
-  complemento: FormControl<string | undefined>;
-  bairro: FormControl<string | undefined>;
-  localidade: FormControl<string | undefined>;
-  uf: FormControl<string | undefined>;
-  ibge: FormControl<number | undefined>;
-  gia: FormControl<number | undefined>;
-  ddd: FormControl<number | undefined>;
-  siafi: FormControl<number | undefined>;
+  _id: FormControl<string>;
+  cep: FormControl<string>;
+  logradouro: FormControl<string>;
+  complemento: FormControl<string>;
+  bairro: FormControl<string>;
+  localidade: FormControl<string>;
+  uf: FormControl<string>;
+  gia: FormControl<string>;
+  ibge: FormControl<number>;
+  ddd: FormControl<number>;
+  siafi: FormControl<number>;
 };

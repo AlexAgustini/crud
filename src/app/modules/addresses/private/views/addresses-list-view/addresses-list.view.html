@@ -1,0 +1,84 @@
+<div class="container-fluid px-0">
+  <div class="card">
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="content-card-title mb-3 col-md-6">
+          <h4 class="card-title mb-1">Endereços</h4>
+          <p class="card-subtitle text-muted">Listagem de endereços</p>
+        </div>
+        <div class="col-md-6 justify-content-end d-flex align-items-center">
+          <button class="btn btn-primary" routerLink="/addresses/add">
+            Adicionar endereço
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <ng-container *ngIf="!isLoading; else loadingTemplate">
+            <ng-container *ngIf="!hasError; else errorTemplate">
+              <ng-container *ngIf="listingData?.length">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" width="10%">Código postal</th>
+                        <th scope="col">Localidade</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">UF</th>
+                        <th scope="col">IBGE</th>
+                        <th scope="col">DDD</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let item of listingData"
+                        class="cursor-pointer"
+                        (click)="editAddress(item._id)"
+                      >
+                        <td>{{item.cep}}</td>
+                        <td>{{item.localidade}}</td>
+                        <td>{{item.bairro}}</td>
+                        <td>{{item.uf}}</td>
+                        <td>{{item.ibge}}</td>
+                        <td>{{item.ddd}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!listingData?.length">
+                <div class="alert alert-primary">
+                  <div class="alert-body">Nenhum registro encontrado</div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #errorTemplate>
+  <div class="alert alert-danger">
+    <div class="alert-body">
+      <span>Ocorreu um erro ao buscar os dados do endereço</span>
+      <button class="btn btn-primary btn-sm ms-2" (click)="fetchAddresses()">
+        Tentar novamente
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <h5 class="card-title placeholder-glow">
+    <span class="placeholder col-6 bg-secondary"></span>
+  </h5>
+  <p class="card-text placeholder-glow">
+    <span
+      *ngFor="let el of [1,2,3]"
+      class="placeholder col-5 bg-secondary"
+    ></span>
+  </p>
+</ng-template>

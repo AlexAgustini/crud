@@ -1,0 +1,18 @@
+<div class="form-group">
+  <label *ngIf="title" [for]="title">{{ title }}</label>
+  <input
+    [placeholder]="placeholder ? placeholder : 'Default'"
+    [id]="title"
+    class="form-control"
+    [type]="type"
+    [formControl]="formControlRef"
+    [mask]="mask"
+  />
+
+  <div
+    class="text-danger"
+    *ngIf="formControlRef.touched && formControlRef.invalid"
+  >
+    <span class="validation-message">Campo requerido</span>
+  </div>
+</div>
